@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portofolio — Rangga Abi Yasha</title>
+
+  <!-- Font: Space Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg-dark:#0b0f14;
+      --panel:#0f1728;
+      --muted:#9aa4b2;
+      --accent:#ff9800; /* oranye */
+      --glass: rgba(255,255,255,0.03);
+      --accent-glow: 0 10px 30px rgba(255,152,0,0.08);
+      --maxw:1200px;
+      --mono: 'Space Mono', monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:var(--mono), monospace;background:linear-gradient(180deg,#080b10 0%, #05070a 100%);color:#eaf3fb;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:60;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(15,17,32,0.8), rgba(15,17,32,0.45));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    }
+    nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1rem}
+    nav h1{font-size:1rem;color:var(--accent);margin:0}
+    .nav-right{display:flex;align-items:center;gap:1rem}
+    .nav-links{display:flex;gap:14px;align-items:center}
+    .nav-links a{padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:0.95rem}
+    .nav-links a.active, .nav-links a:hover{background:var(--glass);color:var(--accent)}
+
+    /* HERO full-screen bg */
+    .hero{
+      min-height:84vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:2.5rem 2rem;
+      background-image: url('IMAGES/back.jpg');
+      background-size:cover;
+      background-position:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg, rgba(5,7,10,0.7) 0%, rgba(5,7,10,0.2) 50%, rgba(5,7,10,0.7) 100%)}
+    .hero-content{position:relative;z-index:2;max-width:900px}
+    .hero h1{font-size:3rem;margin:0 0 0.5rem;color:#fff}
+    .hero p{margin:0 0 1rem;color:var(--muted);font-size:1.05rem}
+    .btn{
+      display:inline-block;padding:12px 22px;border-radius:999px;background:var(--accent);color:#081019;text-decoration:none;font-weight:800;box-shadow:var(--accent-glow);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(255,152,0,0.16)}
+
+    /* container */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+    /* About */
+    .about{display:flex;gap:2.5rem;align-items:center;justify-content:space-between;padding:3rem 2rem;max-width:var(--maxw);margin:0 auto}
+    .about-image{flex:0 0 420px}
+    .about-image img{width:420px;height:420px;object-fit:cover;border-radius:20px;border:6px solid rgba(255,152,0,0.07);box-shadow:0 28px 60px rgba(2,6,23,0.6)}
+    .about-content{flex:1}
+    .about-content h2{margin:0 0 0.75rem;color:var(--accent);font-size:2rem}
+    .about-content p{color:var(--muted);line-height:1.8;font-size:1.05rem}
+
+    /* Skills */
+    .skills{background:linear-gradient(180deg, rgba(255,152,0,0.02), rgba(255,152,0,0.01));padding:3.5rem 2rem}
+    .section-head{max-width:var(--maxw);margin:0 auto 1rem;padding:0 1rem}
+    .section-head h2{color:#fff;margin:0;font-size:1.8rem}
+
+    .skills-grid{max-width:1400px;margin:1.25rem auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:0 1rem}
+    .skill-card{
+      background:linear-gradient(180deg,var(--panel), #07101a);
+      border-radius:14px;padding:1rem;box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;justify-content:space-between;min-height:140px;
+    }
+    .skill-card h3{margin:0 0 0.5rem;color: #fff;font-size:1.05rem}
+    .skill-card p{margin:0;color:var(--muted);font-size:0.95rem}
+    .skill-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .progress{background:rgba(255,255,255,0.04);height:12px;border-radius:999px;margin:10px 0;overflow:hidden;flex:1;margin-right:12px}
+    .progress .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),#f6c26a);width:0;transition:width 0.9s cubic-bezier(.2,.9,.2,1)}
+
+    /* make 2 rows with 3 columns -> grid above handles 3 columns; for 2 rows just ensure enough cards exist */
+
+    /* Portfolio */
+    .portfolio{padding:3rem 2rem}
+    .portfolio-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;padding:0 1rem}
+    .portfolio .card{background:linear-gradient(180deg,#071427,#05101b);padding:0;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02)}
+    .portfolio img{width:100%;height:220px;object-fit:cover;display:block}
+    .portfolio .card h3{padding:1rem 1rem 0;margin:0}
+    .portfolio .card p{padding:0 1rem 1rem;margin:0;color:var(--muted)}
+
+    /* Traditional & digital */
+    .gallery-art{padding:3rem 2rem}
+    .art-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;padding:0 1rem}
+    .art-item img{width:100%;height:320px;object-fit:cover;border-radius:10px;transition:transform .3s,box-shadow .3s}
+    .art-item img:hover{transform:scale(1.03);box-shadow:0 20px 45px rgba(0,0,0,0.6)}
+
+    /* Gallery photos */
+    .photo-gallery{padding:2rem}
+    .photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+    .photo-grid img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+
+    /* Upload section */
+    .upload{padding:3rem 2rem;background:linear-gradient(180deg,#07141b,#061018);border-top:1px solid rgba(255,255,255,0.02)}
+    .upload .card{max-width:920px;margin:0 auto;padding:16px;border-radius:10px;background:linear-gradient(180deg,#08121a,#061018)}
+    .upload label{display:block;margin-top:8px;color:var(--muted);font-weight:700}
+    .upload input[type=file], .upload textarea, .upload select, .upload input[type=number]{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#eaf3fb;margin-top:6px}
+    .upload .row{display:flex;gap:10px;flex-wrap:wrap}
+    .upload .col{flex:1;min-width:140px}
+
+    /* Social */
+    .contact{padding:3rem 2rem;background:linear-gradient(180deg,#041018,#031018);border-top:1px solid rgba(255,255,255,0.02)}
+    .contact-grid{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+    .contact-grid a{width:56px;height:56px;border-radius:999px;background:linear-gradient(180deg,var(--accent),#e68a00);display:inline-flex;align-items:center;justify-content:center;color:#071019;font-size:20px;text-decoration:none;box-shadow:var(--accent-glow)}
+
+    /* modal analyzer */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal .inner{max-width:1000px;width:100%;background:#081018;padding:12px;border-radius:10px}
+    .modal img{width:100%;height:auto;border-radius:8px}
+    .modal .meta{padding:8px 6px;color:var(--muted)}
+
+    /* utility */
+    .to-top{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:10px;background:linear-gradient(180deg,#0b1318,#071018);display:flex;align-items:center;justify-content:center;color:var(--muted);border:1px solid rgba(255,255,255,0.03);cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    @media (max-width:1200px){
+      .about{flex-direction:column;align-items:center;text-align:center}
+      .about-image img{width:320px;height:320px}
+      .skills-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:900px){
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:700px){
+      .nav-links{display:none}
+      .skills-grid{grid-template-columns:1fr}
+      .about-image img{width:260px;height:260px}
+      .hero h1{font-size:2rem}
+      .hero p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <h1>Rangga Abi Yasha — 3D Artist</h1>
+      <div class="nav-right">
+        <div class="nav-links" id="navLinks">
+          <a href="#Home" class="active">Home</a>
+          <a href="#About">About</a>
+          <a href="#SkillAplikasi">Skills</a>
+          <a href="#Portofoliodigital">Portfolio</a>
+          <a href="#GalleryArt">Gallery</a>
+          <a href="upload.html">Upload</a>
+          <a href="#Contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="Home" class="hero">
+      <div class="hero-content container">
+        <h1>Hai, saya Rangga Abi Yasha</h1>
+        <p>3D Artist • Desainer Grafis • Video Editor — saya menggabungkan seni & teknologi untuk membuat pengalaman visual yang bermakna.</p>
+        <a href="#Portofoliodigital" class="btn">Lihat Portofolio</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="About" class="about container">
+      <div class="about-image">
+        <img src="IMAGES/foto.jpg" alt="Foto Rangga" />
+      </div>
+      <div class="about-content">
+        <h2>Tentang Saya</h2>
+        <p>
+          Saya Rangga Abi Yasha, seorang pelajar DKV yang sedang mendalami dunia <strong>3D Modeling</strong> dan <strong>desain digital</strong>.
+          Saya menguasai Blender 3D, Substance Painter, dan ZBrush, serta alat desain seperti Photoshop dan Illustrator. Tujuan saya adalah
+          menghasilkan karya yang bersinggungan antara storytelling, teknik, dan estetika.
+        </p>
+      </div>
+    </section>
+
+    <!-- SKILLS (3 kolom x 2 baris) -->
+    <section id="SkillAplikasi" class="skills container">
+      <div class="section-head">
+        <h2>Skill & Aplikasi</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Blender</h3>
+          <p>3D modeling, animation, rendering.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="blender-bar" class="progress-bar" data-value="78%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="blender-percent">78%</div>
+          </div>
+          <a href="blender.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+
+        <div class="skill-card">
+          <h3>ZBrush</h3>
+          <p>High-detail sculpting for characters & props.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="zbrush-bar" class="progress-bar" data-value="60%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="zbrush-percent">60%</div>
+          </div>
+          <a href="zbrush.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+
+        <div class="skill-card">
+          <h3>Substance Painter</h3>
+          <p>PBR texturing & materials.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="substance-bar" class="progress-bar" data-value="65%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="substance-percent">65%</div>
+          </div>
+          <a href="substance.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+
+        <div class="skill-card">
+          <h3>Photoshop</h3>
+          <p>Photo edit, compositing & digital painting.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="photoshop-bar" class="progress-bar" data-value="70%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="photoshop-percent">70%</div>
+          </div>
+          <a href="photoshop.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+
+        <div class="skill-card">
+          <h3>Illustrator</h3>
+          <p>Vector art, logo, branding.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="illustrator-bar" class="progress-bar" data-value="75%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="illustrator-percent">75%</div>
+          </div>
+          <a href="illustrator.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+
+        <div class="skill-card">
+          <h3>Premiere Pro</h3>
+          <p>Video editing, cutting, & color grading.</p>
+          <div class="skill-row">
+            <div class="progress"><div id="premiere-bar" class="progress-bar" data-value="68%"></div></div>
+            <div style="width:48px;text-align:right;font-weight:800;color:var(--accent)" id="premiere-percent">68%</div>
+          </div>
+          <a href="premiere.html" class="btn" style="margin-top:10px;font-size:0.8rem;padding:8px 16px;">Lihat Karya</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO: hasil karya & deskripsi -->
+    <section id="Portofoliodigital" class="portfolio container">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Portofolio Digital (3D & Desain Grafis)</h2>
+        <div style="color:var(--muted)">Karya yang di-upload akan muncul di sini</div>
+      </div>
+
+      <!-- Search and Filter -->
+      <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap">
+        <input type="text" id="searchInput" placeholder="Cari berdasarkan deskripsi..." style="flex:1;min-width:200px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#eaf3fb;">
+        <select id="filterSelect" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#eaf3fb;">
+          <option value="">Semua Aplikasi</option>
+          <option value="blender">Blender</option>
+          <option value="zbrush">ZBrush</option>
+          <option value="substance">Substance Painter</option>
+          <option value="photoshop">Photoshop</option>
+          <option value="illustrator">Illustrator</option>
+          <option value="premierpro">Premiere Pro</option>
+          <option value="fotogrfi">Fotografi</option>
+        </select>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+        <!-- static examples (ke-3 awal) -->
+        <div class="card">
+          <img src="IMAGES/1.jpg" alt="3D Environment Sci-fi" loading="lazy">
+          <h3>3D Environment Design</h3>
+          <p>Futuristic sci-fi environment created in Blender with Substance Painter.</p>
+        </div>
+
+        <div class="card">
+          <img src="IMAGES/2.jpg" alt="Digital Poster Design" loading="lazy">
+          <h3>Digital Poster Design</h3>
+          <p>Creative poster design combining 3D elements with dynamic typography.</p>
+        </div>
+
+        <div class="card">
+          <img src="IMAGES/3.jpg" alt="3D Character Concept" loading="lazy">
+          <h3>3D Character Concept</h3>
+          <p>Stylized 3D character design created with Blender and detailed in ZBrush.</p>
+        </div>
+
+        <!-- dynamic uploads will be injected after the static cards -->
+      </div>
+
+      <div style="text-align:center;margin-top:2rem">
+        <a href="upload.html" class="btn">Upload Karya Baru & Analisis AI</a>
+      </div>
+    </section>
+
+    <!-- KARYA TRADISIONAL & DIGITAL -->
+    <section id="GalleryArt" class="gallery-art container">
+      <h2>Karya Tradisional & Digital</h2>
+      <p style="color:var(--muted)">Kumpulan karya seni tradisional dan digital painting yang saya buat.</p>
+      <div class="art-grid">
+        <div class="art-item"><img src="IMAGES/kapak.png" alt="Sketsa Wajah Realis" loading="lazy"></div>
+        <div class="art-item"><img src="IMAGES/robot.png" alt="Lukisan Cat Air Pemandangan" loading="lazy"></div>
+        <div class="art-item"><img src="IMAGES/perang.png" alt="Ilustrasi Digital Fantasi" loading="lazy"></div>
+        <div class="art-item"><img src="IMAGES/rumah kayu2.png" alt="Digital Painting" loading="lazy"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY FOTO -->
+    <section class="photo-gallery container">
+      <h2>Gallery Foto</h2>
+      <div class="photo-grid">
+        <img src="IMAGES/1.jpg" alt="">
+        <img src="IMAGES/2.jpg" alt="">
+        <img src="IMAGES/3.jpg" alt="">
+        <img src="IMAGES/11.jpg" alt="">
+      </div>
+    </section>
+
+
+
+    <!-- SOCIAL / CONTACT -->
+    <section id="Contact" class="contact container">
+      <h2>Kontak & Media Sosial</h2>
+      <div style="margin-top:10px" class="contact-grid">
+        <a href="https://www.instagram.com/bang._angga" target="_blank" aria-label="Instagram Rangga"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@bang._ang6" target="_blank" aria-label="TikTok Rangga"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.linkedin.com/in/usernamekamu" target="_blank" aria-label="LinkedIn Rangga"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/087860087460" target="_blank" aria-label="WhatsApp Rangga"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="to-top" id="toTop" title="Kembali ke atas"><i class="fas fa-chevron-up"></i></div>
+
+  <!-- modal for preview/analyzer -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="inner">
+      <button id="modalClose" style="float:right;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">&times;</button>
+      <img id="modalImg" src="" alt="preview">
+      <div class="meta" id="modalMeta"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Configuration ---------- */
+    const APPS = ['blender','zbrush','substance','photoshop','premiere'];
+    const ASPECT_WEIGHTS = { modeling:30, lighting:15, texturing:25, rendering:15, deskripsi:15 };
+
+    /* ---------- Helpers ---------- */
+    function getJSON(key, fallback){ try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }catch(e){ return fallback; } }
+    function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+
+
+    /* ---------- Load uploads and update UI ---------- */
+    function loadUploads(){
+      const uploads = getJSON('portfolio_uploads', []);
+      const perApps = {};
+      APPS.forEach(a=> perApps[a] = getJSON(a + '_projects', []));
+      // build combined list (uploads first)
+      const combined = (uploads || []).slice();
+      // include legacy per-app items not already in uploads
+      APPS.forEach(app=>{
+        perApps[app].forEach(p=>{
+          if(!combined.find(u=>u.id && u.id === p.id)){
+            combined.push({
+              id: p.id || ('legacy_'+Date.now()),
+              app: app,
+              imageData: p.image || p.imageData || '',
+              description: p.desc || p.description || '',
+              userScores: p.userScores || {},
+              aiScores: p.aiScores || {},
+              finalScores: p.finalScores || {},
+              totalPercent: p.totalPercent || 0,
+              aiText: p.aiText || '',
+              timestamp: p.timestamp || new Date().toISOString()
+            });
+          }
+        });
+      });
+
+      // sort by timestamp desc
+      combined.sort((a,b)=> new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+
+      const grid = document.getElementById('portfolioGrid');
+      // remove dynamic children (keep first 3 static)
+      while(grid.children.length > 3) grid.removeChild(grid.lastChild);
+
+      combined.forEach(u=>{
+        // create card
+        const card = document.createElement('div'); card.className = 'card';
+        const img = document.createElement('img'); img.src = u.imageData || 'IMAGES/placeholder.png'; img.alt = u.description || '';
+        const h = document.createElement('h3'); h.textContent = (u.app? u.app.toUpperCase() + ' — Karya' : 'Karya');
+        const p = document.createElement('p'); p.textContent = (u.description || '').slice(0,140) + ((u.description && u.description.length>140)?'...':'');
+        card.appendChild(img); card.appendChild(h); card.appendChild(p);
+        card.addEventListener('click', ()=> openModal(u));
+        grid.appendChild(card);
+      });
+
+      // update skill bars from skill_summary if exists, else compute average
+      const skillSummary = getJSON('skill_summary', {});
+      if(Object.keys(skillSummary).length){
+        APPS.forEach(app=>{
+          const avg = skillSummary[app] ? skillSummary[app].average : 0;
+          const bar = document.getElementById(app + '-bar');
+          const pct = document.getElementById(app + '-percent');
+          if(bar) bar.style.width = (avg || 0) + '%';
+          if(pct) pct.textContent = Math.round((avg||0)) + '%';
+        });
+      } else {
+        // compute from combined
+        const acc = {};
+        combined.forEach(u=>{
+          const a = u.app || 'other';
+          if(!acc[a]) acc[a] = {sum:0,count:0};
+          acc[a].sum += (u.totalPercent || 0); acc[a].count += 1;
+        });
+        APPS.forEach(app=>{
+          const data = acc[app];
+          const avg = data && data.count? (data.sum / data.count) : 0;
+          const bar = document.getElementById(app + '-bar');
+          const pct = document.getElementById(app + '-percent');
+          if(bar) bar.style.width = (avg || 0) + '%';
+          if(pct) pct.textContent = Math.round((avg||0)) + '%';
+        });
+      }
+
+      // update global average
+      const appAvgs = APPS.map(a=>{
+        const s = skillSummary[a] ? skillSummary[a].average : null;
+        if(s !== null && s !== undefined) return s;
+        // else compute quick average
+        const data = combined.filter(u=>u.app===a).map(u=>u.totalPercent || 0);
+        return data.length? (data.reduce((s,v)=>s+v,0)/data.length) : 0;
+      });
+      const global = appAvgs.length? (appAvgs.reduce((s,v)=>s+v,0)/appAvgs.length) : 0;
+      const globalSkillEl = document.getElementById('globalSkill');
+      if(globalSkillEl) globalSkillEl.textContent = Math.round(global*10)/10 + '%';
+    }
+
+    /* ---------- Search and Filter ---------- */
+    function filterCards(){
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const filterApp = document.getElementById('filterSelect').value;
+      const cards = document.querySelectorAll('#portfolioGrid .card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        const app = card.querySelector('h3').textContent.split(' — ')[0].toLowerCase();
+        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+        const matchesFilter = !filterApp || app === filterApp;
+        card.style.display = matchesSearch && matchesFilter ? 'block' : 'none';
+      });
+    }
+
+    /* ---------- Modal / Analyzer ---------- */
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(u){
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      modalImg.src = u.imageData || 'IMAGES/placeholder.png';
+      modalMeta.innerHTML = `<div style="color:var(--muted)"><strong>${u.app?u.app.toUpperCase():'Project'}</strong> — Uploaded: ${new Date(u.timestamp||Date.now()).toLocaleString()}</div>
+        <div style="margin-top:8px;color:var(--muted)">${u.description||''}</div>
+        <div style="margin-top:8px;color:var(--muted)"><strong>Final Skill:</strong> ${u.totalPercent? u.totalPercent+'%' : '—'}</div>
+        <div style="margin-top:8px;color:var(--muted)"><strong>AI summary:</strong> ${u.aiText || '(tidak ada)'}</div>`;
+    }
+    modalClose.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); });
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } });
+
+    // analyzer section (detailed) - not used as separate panel; modal shows details
+
+    /* ---------- Utilities & init ---------- */
+    document.getElementById('toTop').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    // initial set progress-bar width from data-value for static values
+    document.addEventListener('DOMContentLoaded', ()=> {
+      document.querySelectorAll('.progress-bar').forEach(bar=>{
+        const v = bar.getAttribute('data-value') || '0%';
+        setTimeout(()=>{ bar.style.width = v }, 120);
+      });
+      // load dynamic uploads & skill summary
+      loadUploads();
+      // add event listeners for search and filter
+      document.getElementById('searchInput').addEventListener('input', filterCards);
+      document.getElementById('filterSelect').addEventListener('change', filterCards);
+    });
+
+
+  </script>
+</body>
+</html>

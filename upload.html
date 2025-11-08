@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Upload & Analisis — Portofolio</title>
+
+  <!-- Font: Space Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-dark:#0b0f14;
+      --panel:#0f1728;
+      --muted:#9aa4b2;
+      --accent:#ff9800; /* oranye */
+      --glass: rgba(255,255,255,0.03);
+      --accent-glow: 0 10px 30px rgba(255,152,0,0.08);
+      --maxw:1200px;
+      --mono: 'Space Mono', monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:var(--mono), monospace;background:linear-gradient(180deg,#080b10 0%, #05070a 100%);color:#eaf3fb;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:60;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(15,17,32,0.8), rgba(15,17,32,0.45));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    }
+    nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1rem}
+    nav h1{font-size:1rem;color:var(--accent);margin:0}
+    .nav-right{display:flex;align-items:center;gap:1rem}
+    .nav-links{display:flex;gap:14px;align-items:center}
+    .nav-links a{padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:0.95rem}
+    .nav-links a.active, .nav-links a:hover{background:var(--glass);color:var(--accent)}
+
+    /* container */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+    /* Main content */
+    main{padding:3rem 2rem}
+    .upload-card{background:linear-gradient(180deg,var(--panel), #07101a);padding:2rem;border-radius:14px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    .upload-card h1{color:#fff;margin:0 0 1rem;font-size:2rem}
+    .upload-card p{color:var(--muted);margin:0 0 1.5rem;line-height:1.6}
+
+    label{display:block;margin-top:1rem;font-weight:700;color:#fff}
+    input[type=file], select, input[type=number], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#eaf3fb;font-family:var(--mono)}
+    textarea{min-height:120px}
+
+    .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    .col{flex:1;min-width:160px}
+
+    button{margin-top:1.5rem;padding:12px 20px;border-radius:999px;border:none;background:var(--accent);color:#071019;text-decoration:none;font-weight:800;box-shadow:var(--accent-glow);transition:transform .2s,box-shadow .2s;cursor:pointer}
+    button:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(255,152,0,0.16)}
+
+    .preview{margin-top:1rem;max-width:360px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);overflow:hidden}
+    img.preview-img{width:100%;display:block}
+
+    .analysis{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;margin-top:1rem;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    td, th{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.05);text-align:left}
+
+    .small{font-size:0.9rem;color:var(--muted)}
+    .success{background:linear-gradient(90deg,#00b74a,#00ff66);padding:10px;border-radius:8px;color:#021;display:inline-block;margin-top:12px;font-weight:700}
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <h1>Rangga Abi Yasha — 3D Artist</h1>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="portfolio_enhanced.html">Home</a>
+          <a href="portfolio_enhanced.html#SkillAplikasi">Skills</a>
+          <a href="portfolio_enhanced.html#Portofoliodigital">Portfolio</a>
+          <a href="portfolio_enhanced.html#GalleryArt">Gallery</a>
+          <a href="upload.html" class="active">Upload</a>
+          <a href="portfolio_enhanced.html#Contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="upload-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <h1>Upload & Analisis Proyek</h1>
+        <a href="portfolio_enhanced.html" class="btn" style="padding:8px 16px;font-size:0.9rem">← Kembali ke Home</a>
+      </div>
+      <p>Upload gambar hasil karya, isi deskripsi teknik yang digunakan, pilih aplikasi tujuan. Sistem akan menganalisis secara otomatis (AI sederhana + analisis gambar) dan kamu bisa beri skor manual. Hasil akhir adalah gabungan skor user & AI (50:50), lalu disimpan ke halaman aplikasi terkait.</p>
+
+    <label>1) Pilih aplikasi tujuan</label>
+    <select id="appSelect">
+      <option value="blender">Blender</option>
+      <option value="zbrush">ZBrush</option>
+      <option value="substance">Substance Painter</option>
+      <option value="photoshop">Photoshop</option>
+      <option value="premiere">Premiere Pro</option>
+      <!-- tambahkan nama aplikasi lain sesuai file html mu -->
+    </select>
+
+    <label>2) Upload gambar hasil render</label>
+    <div style="position:relative;display:inline-block;width:100%">
+      <input id="fileInput" type="file" accept="image/*" style="position:absolute;left:-9999px">
+      <label for="fileInput" style="display:block;padding:12px;border-radius:8px;border:2px dashed rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:var(--muted);text-align:center;cursor:pointer;transition:background 0.2s">Klik untuk pilih gambar atau drag & drop di sini</label>
+    </div>
+
+    <div class="preview" id="previewWrap" style="display:none">
+      <img id="previewImg" class="preview-img" src="" alt="preview">
+    </div>
+
+    <label>3) Deskripsi proyek (tulis teknik yang kamu pakai)</label>
+    <textarea id="desc" placeholder="Contoh: blockout -> sculpt -> retopo -> UV -> HDRI lighting, bevel modifier, subsurface scattering..."></textarea>
+
+    <button id="analyzeBtn">Analisis AI</button>
+
+    <div id="aiResult" class="analysis" style="display:none"></div>
+
+    <h3 style="margin-top:14px">4) Nilai manual (0–10)</h3>
+    <div class="row">
+      <div class="col">
+        <label>Modeling</label><input id="u_modeling" type="number" min="0" max="10" step="0.1" value="7">
+      </div>
+      <div class="col">
+        <label>Lighting</label><input id="u_lighting" type="number" min="0" max="10" step="0.1" value="7">
+      </div>
+      <div class="col">
+        <label>Texturing & Material</label><input id="u_texturing" type="number" min="0" max="10" step="0.1" value="7">
+      </div>
+      <div class="col">
+        <label>Rendering</label><input id="u_rendering" type="number" min="0" max="10" step="0.1" value="7">
+      </div>
+      <div class="col">
+        <label>Deskripsi Teknis</label><input id="u_deskripsi" type="number" min="0" max="10" step="0.1" value="7">
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label>5) Kontribusi nilai akhir</label>
+      <p class="small">User : AI = <strong>50 : 50</strong> (fixed sesuai permintaan)</p>
+    </div>
+
+    <button id="finalizeBtn">Finalize & Upload ke Halaman Aplikasi</button>
+
+    <div id="status" style="margin-top:10px"></div>
+  </div>
+
+  <script>
+    // Konfigurasi bobot aspek
+    const ASPECT_WEIGHTS = {
+      modeling: 30,
+      lighting: 15,
+      texturing: 25,
+      rendering: 15,
+      deskripsi: 15
+    };
+
+    // helper: simpan dan ambil dari localStorage
+    function getUploads(){ try{ return JSON.parse(localStorage.getItem('portfolio_uploads') || '[]') }catch(e){return []} }
+    function saveUploads(arr){ localStorage.setItem('portfolio_uploads', JSON.stringify(arr)) }
+
+    // helper: simpan skill summary per aplikasi
+    function getSkillSummary(){ try{ return JSON.parse(localStorage.getItem('skill_summary') || '{}') }catch(e){return {}} }
+    function saveSkillSummary(obj){ localStorage.setItem('skill_summary', JSON.stringify(obj)) }
+
+    // UI refs
+    const fileInput = document.getElementById('fileInput');
+    const previewWrap = document.getElementById('previewWrap');
+    const previewImg = document.getElementById('previewImg');
+    const descEl = document.getElementById('desc');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const aiResult = document.getElementById('aiResult');
+    const finalizeBtn = document.getElementById('finalizeBtn');
+    const status = document.getElementById('status');
+    const appSelect = document.getElementById('appSelect');
+
+    let currentImageData = null; // base64
+    let lastAiScores = null;
+    let lastAiText = '';
+
+    // image preview
+    fileInput.addEventListener('change', (e)=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        currentImageData = ev.target.result;
+        previewImg.src = currentImageData;
+        previewWrap.style.display = 'block';
+      }
+      reader.readAsDataURL(f);
+    });
+
+    // simple AI text analyzer (keyword-based)
+    function analyzeText(desc){
+      const text = (desc||'').toLowerCase();
+      // keywords per aspek
+      const kw = {
+        modeling: ['retopo','topology','topologi','retopology','edge loop','quad','subdivision','bevel','sculpt','sculpting','blockout','lowpoly','highpoly'],
+        lighting: ['hdr','hdri','lighting','light','exposure','key light','rim light','ambient occlusion','ao','shadow','bounce'],
+        texturing: ['pbr','albedo','roughness','metallic','substance','texture','uv','unwrap','bake','normal map','detail','substance painter','sps'],
+        rendering: ['cycles','eevee','render','samples','denoise','noise','resolution','rendering','filmic','pass','render pass'],
+        deskripsi: ['workflow','pipeline','step','technique','workflow','modifier','nodes','shader','sbsar','maps']
+      };
+      const baseScore = {modeling:4, lighting:4, texturing:4, rendering:4, deskripsi:3}; // baseline
+      const maxAdd = 6; // so text-based score up to 10
+      const res = {};
+      for(const aspect in kw){
+        let cnt = 0;
+        kw[aspect].forEach(k=>{
+          if(text.includes(k)) cnt++;
+        });
+        // score based on count (saturate)
+        const score = Math.min(10, baseScore[aspect] + Math.min(maxAdd, cnt*1.8));
+        res[aspect] = Number(score.toFixed(2));
+      }
+
+      // analysis text (summary)
+      const analysis = [];
+      if(text.trim().length === 0) analysis.push('Deskripsi kosong — AI merekomendasikan menuliskan langkah workflow & fitur yang digunakan.');
+      else {
+        if(res.modeling >= 8) analysis.push('Deskripsi menunjukkan praktik modeling yang baik (retopo / sculpt / bevel).');
+        if(res.lighting >= 7) analysis.push('Deskripsi menyebut teknik lighting/HDRI sehingga AI menganggap perhatian terhadap pencahayaan baik.');
+        if(res.texturing >= 7) analysis.push('Ada penyebutan PBR/unwrap/normal map sehingga texturing dinilai kuat.');
+        if(res.rendering >= 7) analysis.push('Penggunaan render engine / setting render disebutkan.');
+      }
+      return {scores:res, text: analysis.join(' ') || 'Analisis teks singkat: tidak banyak kata kunci teknis.'};
+    }
+
+    // simple image analyzer (basic metrics)
+    async function analyzeImage(imgDataUrl){
+      if(!imgDataUrl) {
+        // fallback neutral scores
+        return {modeling:6, lighting:6, texturing:6, rendering:6, text:'Tidak ada gambar ter-upload.'};
+      }
+      return new Promise((resolve)=>{
+        const img = new Image();
+        img.onload = function(){
+          // draw to canvas scaled down for speed
+          const cw = Math.min(300, img.width);
+          const ch = Math.round(img.height * (cw / img.width));
+          const c = document.createElement('canvas');
+          c.width = cw; c.height = ch;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(img,0,0,cw,ch);
+          const data = ctx.getImageData(0,0,cw,ch).data;
+          // compute average luminance and edge density
+          let lumSum = 0;
+          let edgeSum = 0;
+          // simple sobel-like approximation for edges: compare with neighbor
+          for(let y=0;y<ch;y++){
+            for(let x=0;x<cw;x++){
+              const i = (y*cw + x)*4;
+              const r = data[i], g = data[i+1], b = data[i+2];
+              const lum = 0.2126*r + 0.7152*g + 0.0722*b;
+              lumSum += lum;
+              // neighbor difference
+              if(x < cw-1){
+                const ni = (y*cw + (x+1))*4;
+                const nr = data[ni], ng = data[ni+1], nb = data[ni+2];
+                const diff = Math.abs(r-nr)+Math.abs(g-ng)+Math.abs(b-nb);
+                edgeSum += diff;
+              }
+            }
+          }
+          const pix = cw*ch;
+          const avgLum = lumSum / pix; // 0-255
+          const avgEdge = edgeSum / pix; // avg diff across neighbors
+          // map lum to lighting score: mid-range lum tends to indicate balanced lighting
+          let lightingScore = 6;
+          if(avgLum < 30) lightingScore = 4; // too dark
+          else if(avgLum < 80) lightingScore = 5.5;
+          else if(avgLum < 140) lightingScore = 7;
+          else if(avgLum < 200) lightingScore = 6.5;
+          else lightingScore = 5.5; // too bright
+
+          // map edge to modeling detail: higher edges -> more detail (but noisy increases edge too)
+          let modelingScore = Math.min(9.5, Math.max(3.5, (avgEdge / 40) )); // scale approx
+          modelingScore = Number((modelingScore).toFixed(2));
+
+          // texturing score: use edge and some lum heuristics
+          let texturingScore = (modelingScore*0.6) + (lightingScore*0.4);
+          texturingScore = Math.min(9.8, Math.max(3.5, texturingScore));
+
+          // rendering: consider smoothness (low edge + mid lum) -> render quality
+          let renderingScore = 7 - Math.min(3, avgEdge/120) + ((avgLum>60 && avgLum<180)?0.6:0);
+          renderingScore = Math.min(9.5, Math.max(3.5, renderingScore));
+
+          resolve({
+            modeling: Number(modelingScore.toFixed(2)),
+            lighting: Number(lightingScore.toFixed(2)),
+            texturing: Number(texturingScore.toFixed(2)),
+            rendering: Number(renderingScore.toFixed(2)),
+            text: `Analisis gambar: avgLum=${Math.round(avgLum)}, avgEdge=${Math.round(avgEdge)}`
+          });
+        };
+        img.onerror = function(){ resolve({modeling:6,lighting:6,texturing:6,rendering:6,text:'Gagal memuat gambar.'});}
+        img.src = imgDataUrl;
+      });
+    }
+
+    // combine text-analysis and image-analysis into AI scores
+    async function runAiAnalysis(desc, imgDataUrl){
+      const textRes = analyzeText(desc);
+      const imgRes = await analyzeImage(imgDataUrl);
+      // combine: text influences deskripsi strongly, image influences visual aspects strongly
+      const combined = {
+        modeling: Number(((imgRes.modeling*0.75) + (textRes.scores.modeling*0.25)).toFixed(2)),
+        lighting: Number(((imgRes.lighting*0.75) + (textRes.scores.lighting*0.25)).toFixed(2)),
+        texturing: Number(((imgRes.texturing*0.75) + (textRes.scores.texturing*0.25)).toFixed(2)),
+        rendering: Number(((imgRes.rendering*0.75) + (textRes.scores.rendering*0.25)).toFixed(2)),
+        deskripsi: Number((textRes.scores.deskripsi).toFixed(2)),
+        textSummary: (textRes.text + ' ' + imgRes.text).trim()
+      };
+      return combined;
+    }
+
+    analyzeBtn.addEventListener('click', async ()=>{
+      aiResult.style.display='block';
+      aiResult.textContent = 'AI sedang menganalisis...';
+      const desc = descEl.value;
+      const ai = await runAiAnalysis(desc, currentImageData);
+      lastAiScores = ai;
+      lastAiText = ai.textSummary;
+      aiResult.innerHTML = `<strong>Hasil AI (skor 0–10):</strong>
+        <table>
+          <tr><th>Aspek</th><th>Skor AI</th></tr>
+          <tr><td>Modeling</td><td>${ai.modeling}</td></tr>
+          <tr><td>Lighting</td><td>${ai.lighting}</td></tr>
+          <tr><td>Texturing & Material</td><td>${ai.texturing}</td></tr>
+          <tr><td>Rendering</td><td>${ai.rendering}</td></tr>
+          <tr><td>Deskripsi Teknis</td><td>${ai.deskripsi}</td></tr>
+        </table>
+        <p style="margin-top:8px"><strong>Ringkasan AI:</strong> ${ai.textSummary}</p>
+      `;
+    });
+
+    // compute final and store
+    finalizeBtn.addEventListener('click', async ()=>{
+      if(!currentImageData){
+        status.innerHTML = '<span class="small" style="color:#f99">Silakan upload gambar terlebih dulu.</span>';
+        return;
+      }
+      // ensure AI run
+      if(!lastAiScores){
+        status.innerHTML = '<span class="small" style="color:#f99">Klik "Analisis AI" dulu sebelum finalize.</span>';
+        return;
+      }
+      // collect user scores
+      const userScores = {
+        modeling: Number(document.getElementById('u_modeling').value) || 0,
+        lighting: Number(document.getElementById('u_lighting').value) || 0,
+        texturing: Number(document.getElementById('u_texturing').value) || 0,
+        rendering: Number(document.getElementById('u_rendering').value) || 0,
+        deskripsi: Number(document.getElementById('u_deskripsi').value) || 0
+      };
+
+      // final per-aspect = (user*0.5 + ai*0.5)
+      const finalScores = {};
+      for(const k in userScores){
+        finalScores[k] = Number(((userScores[k]*0.5) + (lastAiScores[k]*0.5)).toFixed(2));
+      }
+
+      // compute total skill percent using weights (0-10 -> percent)
+      let total = 0;
+      for(const k in finalScores){
+        const weight = ASPECT_WEIGHTS[k] || 0;
+        total += (finalScores[k] * (weight/100)) * 10; // because finalScores in 0-10 -> *10 to get percent
+      }
+      const totalPercent = Number(total.toFixed(2)); // 0-100
+
+      // build upload object
+      const obj = {
+        id: 'upl_'+Date.now(),
+        app: appSelect.value, // e.g., 'blender'
+        imageData: currentImageData,
+        description: descEl.value,
+        userScores,
+        aiScores: lastAiScores,
+        finalScores,
+        totalPercent,
+        aiText: lastAiText,
+        timestamp: new Date().toISOString()
+      };
+
+      // store in uploads
+      const uploads = getUploads();
+      uploads.unshift(obj); // add newest front
+      saveUploads(uploads);
+
+      // update skill summary: we maintain average (simple incremental average)
+      const summary = getSkillSummary();
+      const cur = summary[obj.app] || {average:0, count:0};
+      const newCount = cur.count + 1;
+      const newAvg = ((cur.average * cur.count) + totalPercent) / newCount;
+      summary[obj.app] = {average: Number(newAvg.toFixed(2)), count: newCount};
+      saveSkillSummary(summary);
+
+      status.innerHTML = `<span class="success">Berhasil di-upload ke "${obj.app}.html" — Skill ${obj.app} sekarang ${summary[obj.app].average}% (dari ${summary[obj.app].count} proyek)</span>`;
+
+      // reset-ish
+      lastAiScores = null;
+      lastAiText = '';
+      // redirect to target page
+      setTimeout(()=>{
+        const target = obj.app + '.html';
+        window.location.href = target;
+      },800);
+    });
+
+    // load existing for debugging
+    (function init(){
+      // nothing for now
+    })();
+  </script>
+</body>
+</html>
